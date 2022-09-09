@@ -1,0 +1,27 @@
+.button {
+  background: rgba(77, 91, 158, 1);
+  border: 0;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  margin-top: 1.5em;
+  text-align: center;
+}
+.large__button {
+  @extend .button;
+  height: 52px;
+  font-size: 1.1em;
+  font-weight: 500;
+  line-height: 1.1em;
+  width: 193px;
+}
+.quiz__button {
+  @extend .button;
+  border-radius: 10px;
+  height: 35px;
+  font-size: 0.75em;
+  font-weight: 500;
+  line-height: 0.75em;
+  width: 120px;
+}
