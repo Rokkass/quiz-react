@@ -1,10 +1,10 @@
 import styles from './ScorePage.module.scss';
 import { Button } from '../components/Button/Button';
 
-type ScorePageProps = {
+interface ScorePageProps {
   playerScore: number;
   closeScorePageFn: () => void;
-};
+}
 
 export default function ScorePage(props: ScorePageProps) {
   return (

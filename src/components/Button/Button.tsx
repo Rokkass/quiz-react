@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-type ButtonProps = {
+interface ButtonProps {
   children: React.ReactNode;
   large?: boolean;
   handleSubmit?: () => void;
@@ -9,7 +9,7 @@ type ButtonProps = {
   handleNextQuestion?: () => void;
   loading?: boolean;
   closeScorePageFn?: () => void;
-};
+}
 
 export function Button(props: ButtonProps) {
   const buttonClass = props.large ? styles.large__button : styles.quiz__button;

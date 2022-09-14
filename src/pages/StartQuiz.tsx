@@ -1,9 +1,9 @@
 import styles from './StartQuiz.module.scss';
 import { Button } from '../components/Button/Button';
 
-type StartQuizProps = {
+interface StartQuizProps {
   closeFn: () => void;
-};
+}
 
 export default function StartQuiz(props: StartQuizProps) {
   return (

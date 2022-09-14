@@ -6,23 +6,35 @@ import Answer from '../components/Answer/Answer';
 import ScorePage from './ScorePage';
 import styles from './Home.module.scss';
 
-type Question = {
+// TODO : button styles on click
+
+interface Question {
   category: string;
   correct_answer: string;
   difficulty: string;
   incorrect_answers: string[];
   question: string;
   type: string;
-};
+}
+
+interface currentQuestion {
+  content: string;
+  answer: string;
+  2?: { answerContent: string; isHeld: boolean };
+  3?: { answerContent: string; isHeld: boolean };
+  4?: { answerContent: string; isHeld: boolean };
+  5?: { answerContent: string; isHeld: boolean };
+}
 
 function Home() {
+  const [tidy, setTidy] = useState(false);
   const [isStartOpen, setIsStartOpen] = useState(true);
   const [quizPage, setQuizPage] = useState(false);
   const [isScoreOpen, setIsScoreOpen] = useState(false);
 
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [question, setQuestion] = useState({
+  const [question, setQuestion] = useState<currentQuestion>({
     content: '',
     answer: '',
   });
@@ -62,7 +74,7 @@ function Home() {
     console.log(data);
   }, [data]);
 
-  function generateQuestion(num: number) {
+  function generateQuestion(num: number): currentQuestion {
     let obj = {
       content: data[num].question,
       answer: '',
@@ -82,6 +94,28 @@ function Home() {
     }
     return obj;
   }
+  // function generateQuestion(num: number) {
+  //   let obj = {
+  //     content: data[num].question,
+  //     answer: '',
+  //   };
+  //   const usedNumbers: number[] = [];
+  //   while (Object.keys(obj).length !== 6) {
+  //     let num = Math.floor(Math.random() * 4);
+  //     if (!usedNumbers.includes(num)) {
+  //       usedNumbers.push(num);
+  //
+  //       obj = {
+  //         ...obj,
+  //         [Object.keys(obj).length]: {
+  //           answerContent: data[questionCounter].incorrect_answers[num],
+  //           isHeld: false,
+  //         },
+  //       };
+  //     }
+  //   }
+  //   return obj;
+  // }
 
   function handleNextQuestion() {
     if (questionCounter < 6) {
@@ -103,13 +137,9 @@ function Home() {
     setReset((reset) => !reset);
   }
 
-  function handleAnswer(playerAnswer: string) {
-    data[questionCounter - 1].answer = playerAnswer;
-  }
-
   function handleSubmit() {
     let count = data
-      .map((question) => {
+      .map((question: { answer: string; correct_answer: string }) => {
         return question.answer === question.correct_answer ? 1 : 0;
       })
       .reduce(
@@ -119,6 +149,24 @@ function Home() {
       );
     setScore(count);
     setQuizPage(false);
+    console.log(question.answer);
+  }
+
+  function handleAnswer(playerAnswer: string, q: string) {
+    setData((oldData) =>
+      oldData.map((quest) => {
+        return quest.question === q
+          ? { ...quest, answer: playerAnswer }
+          : quest;
+      })
+    );
+    setQuestion((oldQ) => {
+      return {
+        ...oldQ,
+        selected: playerAnswer,
+      };
+    });
+    // data[questionCounter - 1].answer = playerAnswer;
   }
 
   const answers = [2, 3, 4, 5].map((num, id) => {
@@ -127,10 +175,16 @@ function Home() {
         // @ts-ignore
         answer={question[num]}
         key={id}
+        question={question.content}
+        selected={
+          // @ts-ignore
+          data.length > 0 && question.selected
+        }
         handleAnswerFn={handleAnswer}
       />
     );
   });
+  console.log();
 
   return (
     <>
