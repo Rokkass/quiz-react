@@ -1,4 +1,6 @@
-
+Quiz game inspired by [scrimba](https://scrimba.com/).
+Pressing "Start quiz", website downloads 5 questions from [Open Trivia DB](https://opentdb.com/).
+After answering 5 questions, we get the result.
 
 Technologies:
 * [vite](https://vitejs.dev/)
