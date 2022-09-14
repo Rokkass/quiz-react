@@ -1,3 +1,15 @@
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .button {
   background: rgba(77, 91, 158, 1);
   border: 0;
@@ -14,7 +26,23 @@
   font-size: 1.1em;
   font-weight: 500;
   line-height: 1.1em;
+  position: relative;
   width: 193px;
+}
+.disabled__button {
+  @extend .large__button;
+  opacity: 0.5;
+
+  &::after {
+    animation: loading 2s ease-in-out infinite;
+    color: rgba(77, 91, 158, 1);
+    content: 'loading';
+    font-size: 0.8rem;
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+    top: 50px;
+  }
 }
 .quiz__button {
   @extend .button;

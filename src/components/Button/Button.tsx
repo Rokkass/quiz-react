@@ -7,12 +7,16 @@ interface ButtonProps {
   handleSubmit?: () => void;
   closeFn?: () => void;
   handleNextQuestion?: () => void;
-  loading?: boolean;
+  disabled?: boolean;
   closeScorePageFn?: () => void;
 }
 
 export function Button(props: ButtonProps) {
-  const buttonClass = props.large ? styles.large__button : styles.quiz__button;
+  const buttonClass = props.disabled
+    ? styles.disabled__button
+    : props.large
+    ? styles.large__button
+    : styles.quiz__button;
   return props.handleSubmit ? (
     <button className={buttonClass} onClick={props.handleSubmit}>
       {props.children}
@@ -25,7 +29,7 @@ export function Button(props: ButtonProps) {
     <button className={buttonClass} onClick={props.closeScorePageFn}>
       {props.children}
     </button>
-  ) : props.loading ? (
+  ) : props.disabled === true ? (
     <button className={buttonClass} onClick={props.closeFn} disabled>
       {props.children}
     </button>

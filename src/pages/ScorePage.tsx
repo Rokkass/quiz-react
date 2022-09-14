@@ -4,6 +4,7 @@ import { Button } from '../components/Button/Button';
 interface ScorePageProps {
   playerScore: number;
   closeScorePageFn: () => void;
+  disabled?: boolean;
 }
 
 export default function ScorePage(props: ScorePageProps) {
