@@ -50,7 +50,22 @@ function Home() {
           'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple'
         );
         const resData = await res.json();
-        const data = resData.results;
+        // console.log(JSON.stringify(resData));
+        const clearData =
+          resData &&
+          JSON.stringify(resData)
+            .replaceAll('&#039;', "'")
+            .replaceAll('&quot;', "''")
+            .replaceAll('&rsquo;', "'")
+            .replaceAll('&shy;', '')
+            .replaceAll('&amp;', '&')
+            .replaceAll('&lrm;', '')
+            .replaceAll('&oacute;', 'ó')
+            .replaceAll('&hellip;', '…')
+            .replaceAll('&rdquo;', "''");
+        const parsedData = clearData && JSON.parse(clearData);
+        const data = parsedData.results;
+        // const data = resData.results;
         if (data) {
           data.map((q: Question) => q.incorrect_answers.push(q.correct_answer));
         }
@@ -188,7 +203,7 @@ function Home() {
 
   return (
     <>
-      {isStartOpen && <StartQuiz closeFn={closeStartPage} />}
+      {isStartOpen && <StartQuiz closeFn={closeStartPage} disabled={loading} />}
       {!loading && quizPage && (
         <div className={styles.home__wrapper}>
           <div className={styles.quiz__wrapper}>
