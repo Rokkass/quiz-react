@@ -86,7 +86,7 @@ function Home() {
       setQuestion(generateQuestion(0));
       setQuestionCounter((c) => c + 1);
     }
-    console.log(data);
+    //console.log(data);
   }, [data]);
 
   function generateQuestion(num: number): currentQuestion {
@@ -164,7 +164,7 @@ function Home() {
       );
     setScore(count);
     setQuizPage(false);
-    console.log(question.answer);
+    //console.log(question.answer);
   }
 
   function handleAnswer(playerAnswer: string, q: string) {
@@ -199,7 +199,6 @@ function Home() {
       />
     );
   });
-  console.log();
 
   return (
     <>
